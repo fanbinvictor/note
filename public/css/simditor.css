@@ -685,7 +685,7 @@
   display: inline-block;
   padding: 0 4px;
   margin: 0 5px;
-  background: #eeeeee;
+  background: rgba(54, 56, 58, 0.98);
   border-radius: 3px;
   font-size: 13px;
   font-family: 'monaco', 'Consolas', "Liberation Mono", Courier, monospace;
