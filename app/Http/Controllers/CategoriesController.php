@@ -21,7 +21,8 @@ class CategoriesController extends Controller
         $active_users = $user->getActiveUsers();
         // 资源链接
         $links = $link->getAllCached();
+        $categories=$this->menu;
         // 传参变量到模板中
-        return view('topics.index', compact('topics', 'category', 'active_users', 'links'));
+        return view('topics.index', compact('topics', 'category', 'active_users', 'links','categories'));
     }
 }

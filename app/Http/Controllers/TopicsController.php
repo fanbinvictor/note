@@ -16,6 +16,7 @@ class TopicsController extends Controller
 {
     public function __construct()
     {
+        parent::__construct();
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
@@ -24,8 +25,8 @@ class TopicsController extends Controller
         $topics = $topic->withOrder($request->order)->paginate(20);
         $active_users = $user->getActiveUsers();
         $links = $link->getAllCached();
-
-        return view('topics.index', compact('topics', 'active_users', 'links'));
+        $categories=$this->menu;
+        return view('topics.index', compact('topics', 'active_users', 'links','categories'));
     }
 
     public function show(Request $request, Topic $topic)
@@ -34,13 +35,13 @@ class TopicsController extends Controller
         if ( ! empty($topic->slug) && $topic->slug != $request->slug) {
             return redirect($topic->link(), 301);
         }
-
-        return view('topics.show', compact('topic'));
+        $categories=$this->menu;
+        return view('topics.show', compact('topic', 'categories'));
     }
 
     public function create(Topic $topic)
     {
-        $categories = Category::all();
+        $categories=$this->menu;
         return view('topics.create_and_edit', compact('topic', 'categories'));
     }
 
@@ -56,7 +57,7 @@ class TopicsController extends Controller
 	public function edit(Topic $topic)
     {
         $this->authorize('update', $topic);
-        $categories = Category::all();
+        $categories=$this->menu;
         return view('topics.create_and_edit', compact('topic', 'categories'));
     }
 

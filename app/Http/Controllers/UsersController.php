@@ -11,13 +11,15 @@ class UsersController extends Controller
 {
     public function show(User $user)
     {
-        return view('users.show', compact('user'));
+        $categories=$this->menu;
+        return view('users.show', compact('user', 'categories'));
     }
 
     public function edit(User $user)
     {
         $this->authorize('update', $user);
-        return view('users.edit', compact('user'));
+        $categories=$this->menu;
+        return view('users.edit', compact('user', 'categories'));
     }
 
     public function update(UserRequest $request, ImageUploadHandler $uploader, User $user)
