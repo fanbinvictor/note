@@ -79,20 +79,36 @@ class TopicsController extends Controller
     public function uploadImage(Request $request, ImageUploadHandler $uploader)
     {
         // 初始化返回数据，默认是失败的
-        $data = [
-            'success'   => false,
-            'msg'       => '上传失败!',
-            'file_path' => ''
+//        $data = [
+//            'success'   => false,
+//            'msg'       => '上传失败!',
+//            'file_path' => ''
+//        ];
+        $data= [
+            "uploaded" => 0,
+            "fileName" => '',
+            "url" => '',
+            "error" => [
+                "message" => '上传失败'
+            ]
         ];
         // 判断是否有上传文件，并赋值给 $file
-        if ($file = $request->upload_file) {
+        if ($file = $request->upload) {
             // 保存图片到本地
-            $result = $uploader->save($request->upload_file, 'topics', \Auth::id(), 1024);
+            $result = $uploader->save($request->upload, 'topics', \Auth::id(), 1024);
             // 图片保存成功的话
             if ($result) {
-                $data['file_path'] = $result['path'];
-                $data['msg']       = "上传成功!";
-                $data['success']   = true;
+//                $data['file_path'] = $result['path'];
+//                $data['msg']       = "上传成功!";
+//                $data['success']   = true;
+                $data= [
+                    "uploaded" => 1,
+                    "fileName" => '',
+                    "url" =>$result['path'],
+                    "error" => [
+                        "message" => '上传成功'
+                    ]
+                ];
             }
         }
         return $data;
