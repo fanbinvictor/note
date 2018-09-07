@@ -16,4 +16,9 @@ class Controller extends BaseController
     {
         $this->menu = Category::all();
     }
+
+    public function view($blade,$pageData=[]){
+        $pageData['categories']=$this->menu;
+        return view($blade, $pageData);
+    }
 }
